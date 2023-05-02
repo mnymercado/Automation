@@ -10,6 +10,6 @@ Feature: SignIn to Amazon
   Scenario: Check Amazon Cart if Empty
     Given Open Sign-In Amazon page
     When Click Cart
-    Then Verify Your Amazon Cart is empty
+    Then Verify that Your Amazon Cart is empty
 
 

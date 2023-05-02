@@ -28,7 +28,8 @@ def verify_signin(context, sign_in):
 def click_cart(context):
     context.driver.find_element(By.CSS_SELECTOR, 'span.nav-cart-icon').click()
 
-@then('Verify {cart_status}')
+@then('Verify that {cart_status}')
 def verify_cart(context, cart_status):
     actual_result = context.driver.find_element(By.CSS_SELECTOR, 'div.sc-your-amazon-cart-is-empty').text
     assert actual_result == cart_status, f'Expected result is {cart_status}, but {actual_result} is shown'
+

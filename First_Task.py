@@ -28,7 +28,7 @@ driver.find_element(By.XPATH, "//a[contains(@href, 'ap_signin_notification_priva
 
 
 expected_result = 'Sign in'
-actual_result = driver.find_element(By.XPATH, "//h1[text()]").text
+actual_result = driver.find_element(By.XPATH, "//h1[@class='a-spacing-small']").text
 assert expected_result == actual_result, f'Expected result is {expected_result} but result is {actual_result}'
 assert driver.find_element(By.ID, 'ap_email').is_displayed(), 'Email field not shown' # Verify email is shown
 print("Test Passed")

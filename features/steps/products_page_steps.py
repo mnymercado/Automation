@@ -4,10 +4,9 @@ from time import sleep
 
 
 SEARCH_RESULT_PRICE = (By.XPATH, "//div[@data-component-type='s-search-result']//a[.//span[@class='a-price']]")
-# 'div[data-cel-widget="MAIN-SEARCH_RESULTS-2"] a span.a-price'
 
-def open_amazon(context):
-    context.driver.get('https://www.amazon.com/')
+# def open_amazon(context):
+#     context.driver.get('https://www.amazon.com/')
 
 @when('Click first product')
 def click_first_prod(context):

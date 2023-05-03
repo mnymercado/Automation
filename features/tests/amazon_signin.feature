@@ -12,4 +12,3 @@ Feature: SignIn to Amazon
     When Click Cart
     Then Verify that Your Amazon Cart is empty
 
-

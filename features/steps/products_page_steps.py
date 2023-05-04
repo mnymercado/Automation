@@ -1,17 +1,18 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
+from selenium.webdriver.support import expected_conditions as EC
 
 
 SEARCH_RESULT_PRICE = (By.XPATH, "//div[@data-component-type='s-search-result']//a[.//span[@class='a-price']]")
 PRODUCT_NAME = (By.CSS_SELECTOR, 'li.a-spacing-mini a.sc-product-link')
-# def open_amazon(context):
-#     context.driver.get('https://www.amazon.com/')
+COLOR_OPTIONS = (By.CSS_SELECTOR, 'span.a-list-item span[id*="color_name_"].a-button.a-button-toggle.image-swatch-button')
+CURRENT_COLOR = (By.ID, 'inline-twister-expanded-dimension-text-color_name')
 
 @when('Click first product')
 def click_first_prod(context):
+    context.driver.wait.until(EC.element_to_be_clickable(SEARCH_RESULT_PRICE))
     context.driver.find_element(*SEARCH_RESULT_PRICE).click()
-    sleep(2)
 
 @when('Click Add to Cart button')
 def open_cart(context):
@@ -31,3 +32,29 @@ def cart_correct_prod(context):
     print(f'Cart Product Name: {prod_name}')
     print(f'Searched name: {context.product_name}')
     assert context.product_name in prod_name[:50], f'Not the right product'
+
+
+@given('Open Amazon product {product_id} page')
+def open_product(context, product_id):
+    context.driver.get(f'https://www.amazon.com/Hanes-Sleeve-Jersey-Pocket-X-Large/dp/{product_id}')
+    context.driver.implicitly_wait(5)
+
+@then('Verify user can click through colors')
+def verify_prod_colors(context):
+    context.driver.find_element(*COLOR_OPTIONS).click()
+
+    color_options = context.driver.find_elements(*COLOR_OPTIONS)
+    expected_colors = ['Army Green', 'Black', 'Blue', 'Brown', 'Burgundy', 'Caramel', 'Dark Blue', 'Denim Blue', 'Gray', 'Green', 'Khaki', 'Light-green', 'Orange', 'Pink', 'Purple']
+    actual_colors = []
+
+    for color in color_options:
+        color.click()
+        current_color = context.driver.find_element(*CURRENT_COLOR).text
+        # print('Current color: ', current_color)
+        actual_colors.append(current_color)
+
+    # print('Actual color: ', actual_colors)
+
+    assert expected_colors == actual_colors, f'Expected color is {expected_colors} but color is {actual_colors}'
+
+    # sleep(5)

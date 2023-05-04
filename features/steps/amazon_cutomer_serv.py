@@ -11,7 +11,8 @@ NUM_OF_TOPICS = (By.CSS_SELECTOR, 'li.help-topics')
 @when('Go to Customer Service Page')
 def customer_service_page(context):
     context.driver.find_element(*CUSTSERVICE_PAGE).click()
-    sleep(3)
+    # sleep(3)
+
 
 
 @when('Verify text {expected_res} is shown')

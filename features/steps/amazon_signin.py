@@ -4,6 +4,7 @@ from behave import given, when, then
 @given('Open Sign-In Amazon page')
 def open_amazon(context):
     context.driver.get('https://www.amazon.com/')
+    context.driver.implicitly_wait(5)
 
 @when('Click Returns and Orders')
 def click_returns_and_orders_btn(context):

@@ -4,7 +4,7 @@ from time import sleep
 
 
 SEARCH_RESULT_PRICE = (By.XPATH, "//div[@data-component-type='s-search-result']//a[.//span[@class='a-price']]")
-
+PRODUCT_NAME = (By.CSS_SELECTOR, 'li.a-spacing-mini a.sc-product-link')
 # def open_amazon(context):
 #     context.driver.get('https://www.amazon.com/')
 
@@ -24,3 +24,10 @@ def go_to_amazon_cart(context):
 @then('Verify cart not empty')
 def cart_not_empty(context):
     assert context.driver.find_element(By.ID, 'activeCartViewForm'), f'Cart is empty'
+
+@then('Verify cart has correct item')
+def cart_correct_prod(context):
+    prod_name = context.driver.find_element(*PRODUCT_NAME).text
+    print(f'Cart Product Name: {prod_name}')
+    print(f'Searched name: {context.product_name}')
+    assert context.product_name in prod_name[:50], f'Not the right product'

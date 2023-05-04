@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
 
-BEST_SELLER_LINKS = (By.CSS_SELECTOR, 'div._p13n-zg-nav-tab-all_style_zg-tabs__EYPLq li')
+BEST_SELLER_LINKS = (By.CSS_SELECTOR, 'div[class*="nav-tab-all_style_zg-tabs"] li')
 
 @given('Open Amazon Bestseller Page')
 def open_amazon(context):

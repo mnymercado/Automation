@@ -22,9 +22,10 @@ Feature: Amazon search tests
 
   Scenario: Check Amazon cart if not empty
     Given Open Amazon page
-    When Input text coke
+    When Input text Bag
     When Click on search button
     And Click first product
     And Click Add to Cart button
     And Go to Amazon Cart
     Then Verify cart not empty
+    And Verify cart has correct item

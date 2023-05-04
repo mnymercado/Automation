@@ -31,11 +31,9 @@ def verify_cust_div(context, number_of_div):
 
 @then('Verify the Search our help library, All help topics is present and input field is present')
 def verify_all_help_and_reco_topics(context):
-    all_topic_lbl = context.driver.find_elements(By.CSS_SELECTOR,
-                                                 'h2.fs-heading.bolded'), f'Search our help library and All help topics are not shown'
+    all_topic_lbl = context.driver.find_elements(By.CSS_SELECTOR, 'h2.fs-heading.bolded'), f'Search our help library and All help topics are not shown'
     assert len(all_topic_lbl) == 2, f'Length of All help topics and help library now shown'
-    assert context.driver.find_element(
-        *WELCOMECUST_INPUT_FIELD), f'Input field not present'  # Input field after Search library label
+    assert context.driver.find_element(*WELCOMECUST_INPUT_FIELD), f'Input field not present'  # Input field after Search library label
 
 
 @then('Verify {number_of_topics} Search help topics')

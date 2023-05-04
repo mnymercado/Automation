@@ -16,7 +16,7 @@ def open_amazon(context):
 @when('Input text {search_word}')
 def input_search_word(context, search_word):
     context.driver.find_element(*AMAZON_SEARCH_INPUT).send_keys(search_word)
-
+    context.product_name = search_word
 @when('Click on search button')
 def click_search(context):
     context.driver.find_element(*SEARCH_BTN).click()

@@ -12,3 +12,8 @@ Feature: SignIn to Amazon
     When Click Cart
     Then Verify that Your Amazon Cart is empty
 
+  Scenario: Sign in Page open from Sign In popup
+    Given Open Amazon page
+    When Click pop up Sign in page
+    Then Verify Sign in Page is open
+

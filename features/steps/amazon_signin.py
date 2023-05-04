@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
+from selenium.webdriver.support import expected_conditions as EC
 
+SIGNIN_BTN = (By.CSS_SELECTOR, '#nav-signin-tooltip a.nav-action-signin-button span.nav-action-inner')
 @given('Open Sign-In Amazon page')
 def open_amazon(context):
     context.driver.get('https://www.amazon.com/')
@@ -34,3 +36,13 @@ def verify_cart(context, cart_status):
     actual_result = context.driver.find_element(By.CSS_SELECTOR, 'div.sc-your-amazon-cart-is-empty').text
     assert actual_result == cart_status, f'Expected result is {cart_status}, but {actual_result} is shown'
 
+@when('Click pop up Sign In page')
+def click_popup_SignIn_page(context):
+    context.driver.wait.until(EC.element_to_be_clickable(SIGNIN_BTN))
+    context.driver.find_element(*SIGNIN_BTN).click()
+
+@then('Verify {signin_text} Page is open')
+def verify_SignIn_page_open(context, signin_text):
+    context.driver.wait.until(EC.url_contains('https://www.amazon.com/ap/signin'))
+    signin = context.driver.find_element(By.CSS_SELECTOR, 'h1.a-spacing-small').text
+    assert signin == signin_text, f'Sign in page not opened'

@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
-from time import sleep
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -8,6 +7,7 @@ SEARCH_RESULT_PRICE = (By.XPATH, "//div[@data-component-type='s-search-result']/
 PRODUCT_NAME = (By.CSS_SELECTOR, 'li.a-spacing-mini a.sc-product-link')
 COLOR_OPTIONS = (By.CSS_SELECTOR, 'span.a-list-item span[id*="color_name_"].a-button.a-button-toggle.image-swatch-button')
 CURRENT_COLOR = (By.ID, 'inline-twister-expanded-dimension-text-color_name')
+
 
 @when('Click first product')
 def click_first_prod(context):
@@ -57,4 +57,25 @@ def verify_prod_colors(context):
 
     assert expected_colors == actual_colors, f'Expected color is {expected_colors} but color is {actual_colors}'
 
-    # sleep(5)
+
+@then('Verify user can clicks through specified color')
+def verify_colors(context):
+    #WAIT UNTIL THE ELEMENT IS CLICKABLE
+    context.driver.wait.until(EC.element_to_be_clickable(COLOR_OPTIONS))
+    #CLICK ELEMENT
+    context.driver.find_element(*COLOR_OPTIONS).click()
+
+    expected_colors = ['Light Wash', 'Black', 'Blue, Over Dye', 'Bright White', 'Dark Blue Vintage', 'Dark Indigo/Rinsed', 'Dark Khaki Brown', 'Dark Wash', 'Indigo Wash', 'Light Blue Vintage', 'Light Khaki Brown', 'Medium Blue, Vintage', 'Medium Wash', 'Olive', 'Rinsed']
+    color_options = context.driver.find_elements(*COLOR_OPTIONS)
+
+    actual_colors = []
+
+    for color in color_options:
+        color.click()
+        current_color = context.driver.find_element(*CURRENT_COLOR).text
+        # print('Current color: ', current_color)
+        actual_colors.append(current_color)
+
+    print('Actual color: ', actual_colors)
+    print('Expected color: ', expected_colors)
+    assert actual_colors == expected_colors, f'Expected color is {expected_colors} but color is {actual_colors}'

@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
 from selenium.webdriver.support import expected_conditions as EC
+from time import sleep
 
 SIGNIN_BTN = (By.CSS_SELECTOR, '#nav-signin-tooltip a.nav-action-signin-button span.nav-action-inner')
 
@@ -59,3 +60,25 @@ def verify_signin_page_open(context, signin_text):
     context.driver.wait.until(EC.url_contains('https://www.amazon.com/ap/signin'))
     signin = context.driver.find_element(By.CSS_SELECTOR, 'h1.a-spacing-small').text
     assert signin == signin_text, f'Sign in page not opened'
+
+
+@then('Verify Sign in popup shown')
+def click_popup_signin_page(context):
+    context.driver.wait.until(
+        EC.element_to_be_clickable(SIGNIN_BTN),
+        message='Sign in button not clickable'
+    )
+    # context.driver.find_element(*SIGNIN_BTN).click()
+
+
+@then('Wait for {sec} seconds')
+def wait_sec(context, sec):
+    sleep(int(sec))
+
+
+@then('Verify Signin popup disappears')
+def verify_popup_disappears(context):
+    context.driver.wait.until(
+        EC.invisibility_of_element_located(SIGNIN_BTN),
+        message='Sign in button did not disappear'
+    )

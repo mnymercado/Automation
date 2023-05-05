@@ -3,6 +3,7 @@ Feature: Amazon main page tests
   Scenario: User can see hamburger menu
     Given Open Amazon page
     Then Verify hamburger menu icon
+    When Click on hamburger menu
 
   Scenario: Footer has correct number of links
     Given Open Amazon page

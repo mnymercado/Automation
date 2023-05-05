@@ -8,28 +8,40 @@ HAM_MENU = (By.ID, 'nav-hamburger-menu')
 FOOTER_LINKS = (By.CSS_SELECTOR, 'table.navFooterMoreOnAmazon td.navFooterDescItem')
 NAV_LINKS = (By.CSS_SELECTOR, '#nav-xshop .nav-a')
 
+
 @given('Open Amazon page')
 def open_amazon(context):
     context.driver.get('https://www.amazon.com/')
     context.driver.implicitly_wait(10)
 
+
 @when('Input text {search_word}')
 def input_search_word(context, search_word):
     context.driver.find_element(*AMAZON_SEARCH_INPUT).send_keys(search_word)
     context.product_name = search_word
+
+
 @when('Click on search button')
 def click_search(context):
     context.driver.find_element(*SEARCH_BTN).click()
+
 
 @then('Verify that text {expected_res} is shown')
 def verify_search_result(context, expected_res):
     actual_result = context.driver.find_element(By.XPATH, "//span[@class='a-color-state a-text-bold']").text
     assert actual_result == expected_res, f'Expected {expected_res}, but it shows {actual_result}'
 
+
 @then('Verify hamburger menu icon')
 def verify_menu(context):
-    element = context.driver.find_element(*HAM_MENU)
-    print(element)
+    context.ham_menu = context.driver.find_element(*HAM_MENU)
+    # context.driver.refresh()
+
+
+@when('Click on hamburger menu')
+def click_hamburger_menu(context):
+    context.ham_menu.click()
+
 
 @then('Verify footer has {number_of_link} links')
 def footer_links(context, number_of_link):

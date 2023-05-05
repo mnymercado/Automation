@@ -11,7 +11,7 @@ NAV_LINKS = (By.CSS_SELECTOR, '#nav-xshop .nav-a')
 @given('Open Amazon page')
 def open_amazon(context):
     context.driver.get('https://www.amazon.com/')
-    context.driver.implicitly_wait(5)
+    context.driver.implicitly_wait(10)
 
 @when('Input text {search_word}')
 def input_search_word(context, search_word):

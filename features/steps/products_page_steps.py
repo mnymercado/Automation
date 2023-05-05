@@ -7,7 +7,7 @@ SEARCH_RESULT_PRICE = (By.XPATH, "//div[@data-component-type='s-search-result']/
 PRODUCT_NAME = (By.CSS_SELECTOR, 'li.a-spacing-mini a.sc-product-link')
 COLOR_OPTIONS = (By.CSS_SELECTOR, 'span.a-list-item span[id*="color_name_"].a-button.a-button-toggle.image-swatch-button')
 CURRENT_COLOR = (By.ID, 'inline-twister-expanded-dimension-text-color_name')
-
+PRODUCT_RESULTS = (By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS"]')
 
 @when('Click first product')
 def click_first_prod(context):
@@ -79,3 +79,19 @@ def verify_colors(context):
     print('Actual color: ', actual_colors)
     print('Expected color: ', expected_colors)
     assert actual_colors == expected_colors, f'Expected color is {expected_colors} but color is {actual_colors}'
+
+
+# $$('div[cel_widget_id*="MAIN-SEARCH_RESULTS"]') #Search_Results
+
+@then('Verify image and title is present')
+def verify_img_and_title(context):
+    search_result = context.driver.find_elements(*PRODUCT_RESULTS)
+    # img_result = context.driver.find_element(By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS"] img[data-image-latency="s-product-image"]')
+    # title_result = context.driver.find_element(By.CSS_SELECTOR, 'span.a-size-base-plus').text
+
+
+    for result in search_result:
+        # print(result)
+        assert result.find_element(By.CSS_SELECTOR, 'img[data-image-latency="s-product-image"]'), 'No product image'
+        assert result.find_element(By.CSS_SELECTOR, 'span.a-size-base-plus'), 'No product title'
+        # print(result.find_element(By.CSS_SELECTOR, 'span.a-size-base-plus').text)

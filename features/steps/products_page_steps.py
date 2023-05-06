@@ -37,7 +37,7 @@ def cart_correct_prod(context):
 @given('Open Amazon product {product_id} page')
 def open_product(context, product_id):
     context.driver.get(f'https://www.amazon.com/Hanes-Sleeve-Jersey-Pocket-X-Large/dp/{product_id}')
-    context.driver.implicitly_wait(5)
+    context.driver.implicitly_wait(10)
 
 @then('Verify user can click through colors')
 def verify_prod_colors(context):

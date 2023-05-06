@@ -41,6 +41,6 @@ def close_blog(context):
 
 @then('Return to original window')
 def return_orig_window(context):
-    # context.driver.switch_to.window(context.current_window) #RECOMMENDED
-    windows = context.driver.window_handles
-    context.driver.switch_to.window(windows[0])
+    context.driver.switch_to.window(context.current_window) #RECOMMENDED
+    # windows = context.driver.window_handles
+    # context.driver.switch_to.window(windows[0])

@@ -9,22 +9,27 @@ COLOR_OPTIONS = (By.CSS_SELECTOR, 'span.a-list-item span[id*="color_name_"].a-bu
 CURRENT_COLOR = (By.ID, 'inline-twister-expanded-dimension-text-color_name')
 PRODUCT_RESULTS = (By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS"]')
 
+
 @when('Click first product')
 def click_first_prod(context):
     context.driver.wait.until(EC.element_to_be_clickable(SEARCH_RESULT_PRICE))
     context.driver.find_element(*SEARCH_RESULT_PRICE).click()
 
+
 @when('Click Add to Cart button')
 def open_cart(context):
     context.driver.find_element(By.ID, 'add-to-cart-button').click()
+
 
 @when('Go to Amazon Cart')
 def go_to_amazon_cart(context):
     context.driver.find_element(By.CSS_SELECTOR, 'a[href="/cart?ref_=sw_gtc"]').click()
 
+
 @then('Verify cart not empty')
 def cart_not_empty(context):
     assert context.driver.find_element(By.ID, 'activeCartViewForm'), f'Cart is empty'
+
 
 @then('Verify cart has correct item')
 def cart_correct_prod(context):
@@ -38,6 +43,7 @@ def cart_correct_prod(context):
 def open_product(context, product_id):
     context.driver.get(f'https://www.amazon.com/Hanes-Sleeve-Jersey-Pocket-X-Large/dp/{product_id}')
     context.driver.implicitly_wait(10)
+
 
 @then('Verify user can click through colors')
 def verify_prod_colors(context):

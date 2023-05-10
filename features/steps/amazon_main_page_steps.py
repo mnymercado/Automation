@@ -2,8 +2,8 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
 
-AMAZON_SEARCH_INPUT = (By.ID, 'twotabsearchtextbox')
-SEARCH_BTN = (By.ID, 'nav-search-submit-button')
+# AMAZON_SEARCH_INPUT = (By.ID, 'twotabsearchtextbox')
+# SEARCH_BTN = (By.ID, 'nav-search-submit-button')
 HAM_MENU = (By.ID, 'nav-hamburger-menu')
 FOOTER_LINKS = (By.CSS_SELECTOR, 'table.navFooterMoreOnAmazon td.navFooterDescItem')
 NAV_LINKS = (By.CSS_SELECTOR, '#nav-xshop .nav-a')
@@ -11,26 +11,29 @@ NAV_LINKS = (By.CSS_SELECTOR, '#nav-xshop .nav-a')
 
 @given('Open Amazon page')
 def open_amazon(context):
-    context.driver.get('https://www.amazon.com/')
+    # context.driver.get('https://www.amazon.com/')
     context.driver.implicitly_wait(10)
+    context.app.main_page.open_main()
 
 
 @when('Input text {search_word}')
 def input_search_word(context, search_word):
-    context.driver.find_element(*AMAZON_SEARCH_INPUT).send_keys(search_word)
-    context.product_name = search_word
+    # context.driver.find_element(*AMAZON_SEARCH_INPUT).send_keys(search_word)
+    # context.product_name = search_word
+    context.app.header.input_search_text(search_word)
 
 
 @when('Click on search button')
 def click_search(context):
-    context.driver.find_element(*SEARCH_BTN).click()
+    # context.driver.find_element(*SEARCH_BTN).click()
+    context.app.header.click_search()
 
 
 @then('Verify that text {expected_res} is shown')
 def verify_search_result(context, expected_res):
-    actual_result = context.driver.find_element(By.XPATH, "//span[@class='a-color-state a-text-bold']").text
-    assert actual_result == expected_res, f'Expected {expected_res}, but it shows {actual_result}'
-
+    # actual_result = context.driver.find_element(By.XPATH, "//span[@class='a-color-state a-text-bold']").text
+    # assert actual_result == expected_res, f'Expected {expected_res}, but it shows {actual_result}'
+    context.app.search_results_page.verify_search_result(expected_res)
 
 @then('Verify hamburger menu icon')
 def verify_menu(context):

@@ -29,7 +29,6 @@ def verify_each_nav(context):
         link_to_click = context.driver.find_elements(*NAV_LINKS)[i]
         nav_title = link_to_click.text
         print(nav_title)
-        # print(link_to_click)
 
         link_to_click.click()
 

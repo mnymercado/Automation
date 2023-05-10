@@ -95,7 +95,6 @@ def verify_img_and_title(context):
     # img_result = context.driver.find_element(By.CSS_SELECTOR, 'div[cel_widget_id*="MAIN-SEARCH_RESULTS"] img[data-image-latency="s-product-image"]')
     # title_result = context.driver.find_element(By.CSS_SELECTOR, 'span.a-size-base-plus').text
 
-
     for result in search_result:
         # print(result)
         assert result.find_element(By.CSS_SELECTOR, 'img[data-image-latency="s-product-image"]'), 'No product image'

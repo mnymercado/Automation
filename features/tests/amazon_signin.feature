@@ -24,3 +24,7 @@ Feature: SignIn to Amazon
     Then Verify Sign in popup shown
     Then Verify Signin popup disappears
 
+  Scenario: User can see sign in page with Page Object implementation
+    Given Open Amazon page
+    When Click Sign in Page button
+    Then Verify Sign in Page is open

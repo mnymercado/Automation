@@ -8,19 +8,19 @@ SIGNIN_BTN = (By.CSS_SELECTOR, '#nav-signin-tooltip a.nav-action-signin-button s
 
 @given('Open Sign-In Amazon page')
 def open_amazon(context):
-    context.driver.get('https://www.amazon.com/')
+    context.app.main_page.open_main()
     context.driver.implicitly_wait(5)
 
 
 @when('Click Returns and Orders')
 def click_returns_and_orders_btn(context):
-    context.driver.find_element(By.ID, "nav-orders").click()
+    # context.driver.find_element(By.ID, "nav-orders").click()
+    context.app.header.click_returns_and_orders()
 
 
 @when('Input in input field {name}')
 def input_text(context, name):
     context.driver.find_element(By.ID, "ap_email").send_keys(name)
-
 
 @then('Verify amazon logo, continue button, Need help, Forgot Password, Other issues with Sign-In, Create you Amazon account button and {sign_in} text is shown')
 def verify_signin(context, sign_in):
@@ -36,13 +36,14 @@ def verify_signin(context, sign_in):
 
 @when('Click Cart')
 def click_cart(context):
-    context.driver.find_element(By.CSS_SELECTOR, 'span.nav-cart-icon').click()
+    context.app.header.click_cart()
 
 
-@then('Verify that {cart_status}')
-def verify_cart(context, cart_status):
-    actual_result = context.driver.find_element(By.CSS_SELECTOR, 'div.sc-your-amazon-cart-is-empty').text
-    assert actual_result == cart_status, f'Expected result is {cart_status}, but {actual_result} is shown'
+@then('Verify that {cart_stat}')
+def verify_cart(context, cart_stat):
+    # actual_result = context.driver.find_element(By.CSS_SELECTOR, 'div.sc-your-amazon-cart-is-empty').text
+    # assert actual_result == cart_status, f'Expected result is {cart_status}, but {actual_result} is shown'
+    context.app.cart_main_page.cart_status(cart_stat)
 
 
 @when('Click pop up Sign In page')

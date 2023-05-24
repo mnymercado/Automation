@@ -1,6 +1,5 @@
 from pages.base_page import Page
 from selenium.webdriver.common.by import By
-from features.steps import amazon_main_page_steps
 
 
 class Header(Page):
@@ -8,6 +7,8 @@ class Header(Page):
     SEARCH_BTN = (By.ID, 'nav-search-submit-button')
     HAM_MENU = (By.ID, 'nav-hamburger-menu')
     NAV_LINKS = (By.CSS_SELECTOR, '#nav-xshop .nav-a')
+    CART_BTN = (By.CSS_SELECTOR, 'span.nav-cart-icon')
+    RETURNS_AND_ORDERS_BTN = (By.ID, "nav-orders")
 
     def input_search_text(self, text):
         self.input_text(text, *self.AMAZON_SEARCH_INPUT)
@@ -23,4 +24,11 @@ class Header(Page):
 
     def no_of_header_link(self, *locator):
         pass
+
+    def click_cart(self):
+        self.click(*self.CART_BTN)
+
+    def click_returns_and_orders(self):
+        self.click(*self.RETURNS_AND_ORDERS_BTN)
+
 

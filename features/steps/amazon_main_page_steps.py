@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from behave import given, when, then
+
 from time import sleep
 
 FOOTER_LINKS = (By.CSS_SELECTOR, 'table.navFooterMoreOnAmazon td.navFooterDescItem')
@@ -56,6 +57,7 @@ def header_links(context, no_of_head_link):
     head_link = context.driver.find_elements(*NAV_LINKS)
     assert len(head_link) == no_of_head_link, f'Expected {no_of_head_link} links but got {len(head_link)}'
 
+    context.app.header.no_of_header_link()
 
 @when('Click Sign in Page button')
 def click_signin_btn(context):
